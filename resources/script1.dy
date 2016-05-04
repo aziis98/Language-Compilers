@@ -1,0 +1,70 @@
+/*
+Store: struct(
+    Products: struct(Count: integer, Name: string)
+    Balance: integer = 1000
+)
+
+House: struct(
+    Street: string
+    RoomCount: integer
+    Family: list(Person: struct(
+        Name: string
+        Age: integer
+    ))
+)
+*/
+
+house = House[
+    Owner = "Via Roma 1"
+    RoomCount = 5
+    Family = list[
+        Person[Name = "Mr. Rossi", Age = 41]
+        Person[Name = "Mrs. Rossi", Age = 38]
+        Person[Name = "Filippo Rossi", Age = 14]
+    ]
+]
+
+def doSomething <- [ a ] { /* ...things... */ }
+
+def myList <- range[1, 20]
+
+def resultList <- doSomething[|myList| * 2]
+
+def lambdaList <- |myList| * 3 + math.sqrt(2) * |myList|
+
+def mySum <- sum[myList]
+
+def multipleOf2 <- |myList| % 2 == 0
+
+def multipleOf3 <- |myList| % 3 == 0
+
+def intersection <- [ list1  list2 ] {
+    return list1.contains[|list2|]
+}
+
+def multipleOf6 <- intersection[multipleOf2, multipleOf3]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

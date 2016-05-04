@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/CoreCompiler/CoreCompiler.iml" filepath="$PROJECT_DIR$/CoreCompiler/CoreCompiler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Dynamical/Dynamical.iml" filepath="$PROJECT_DIR$/Dynamical/Dynamical.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LanguageCompilers.iml" filepath="$PROJECT_DIR$/LanguageCompilers.iml" />
+    </modules>
+  </component>
+</project>
