@@ -1,5 +1,6 @@
 package com.aziis98.corecompiler
 
+import org.junit.*
 import java.util.*
 
 // Copyright 2016 Antonio De Lucreziis
@@ -12,14 +13,74 @@ class Scope() {
     }
 
     fun getVariable(name: String): Variable {
-        return variables[name] ?: throw VariableNotFoundException("The variable \"$name\" does not exists!")
+        return variables[name] ?:
+            throw VariableNotFoundException("The variable '$name' does not exists in scope ${this.toString()}!")
     }
 }
 
-class Variable(val name: String, val type: VariableType, var value: VaraibleValue)
+class Variable(val name: String, val type: VariableType, var value: Any)
 
 class VariableType(val name: String)
 
-class VaraibleValue()
-
 class VariableNotFoundException(message: String = "") : RuntimeException(message)
+
+data class TypeDefinition(val name: String, val extending: Set<TypeDefinition> = setOf()) {
+
+    fun isSubOf(typeDefinition: TypeDefinition): Boolean {
+        return typeDefinition == this || extending.any { it.isSubOf(typeDefinition) }
+    }
+
+    fun isSuperOf(typeDefinition: TypeDefinition): Boolean {
+        return typeDefinition == this || typeDefinition.extending.any { it.isSuperOf(this) }
+    }
+
+}
+
+class TypeDefTest() {
+    @Test
+    fun test1() {
+        val typeGeneric = TypeDefinition("generic")
+
+        val typeString = TypeDefinition("string", setOf(typeGeneric))
+        val typeNumeric = TypeDefinition("numeric", setOf(typeGeneric))
+
+        val typeInteger = TypeDefinition("integer", setOf(typeNumeric))
+        val typeDecimal = TypeDefinition("decimal", setOf(typeNumeric))
+
+        val typeA = TypeDefinition("A", setOf(typeGeneric))
+        val typeB = TypeDefinition("B", setOf(typeGeneric))
+        val typeC = TypeDefinition("C", setOf(typeA, typeB))
+
+        Assert.assertTrue(typeA.isSuperOf(typeC))
+        Assert.assertTrue(typeC.isSubOf(typeA))
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
