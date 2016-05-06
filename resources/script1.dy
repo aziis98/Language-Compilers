@@ -14,15 +14,18 @@ House: struct(
 )
 */
 
-house = House[
-    Owner = "Via Roma 1"
-    RoomCount = 5
-    Family = list[
-        Person[Name = "Mr. Rossi", Age = 41]
-        Person[Name = "Mrs. Rossi", Age = 38]
-        Person[Name = "Filippo Rossi", Age = 14]
+room = Room {
+    Id = 112
+    BedCount = 4
+    People = list [
+        "A"
+        "B"
+        "C"
+        "D"
     ]
-]
+}
+
+def Room.print <-
 
 def doSomething <- [ a ] { /* ...things... */ }
 
