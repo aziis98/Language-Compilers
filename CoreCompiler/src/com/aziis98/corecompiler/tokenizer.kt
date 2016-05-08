@@ -13,9 +13,11 @@ fun defaultGluer(a: Char, b: Char): Boolean {
         (a.isWhitespace() && b.isWhitespace())
 }
 
-fun tokenize(source: String, gluer: (Char, Char) -> Boolean = ::defaultGluer): List<String> {
-    var cToken = StringBuilder()
-    var list = LinkedList<String>()
+class TokenList : LinkedList<String>()
+
+fun tokenize(source: String, gluer: (Char, Char) -> Boolean = ::defaultGluer): TokenList {
+    val cToken = StringBuilder()
+    val list = TokenList()
 
     for (i in 0 .. source.length - 2) {
         cToken.append(source[i])
@@ -35,3 +37,42 @@ fun tokenize(source: String, gluer: (Char, Char) -> Boolean = ::defaultGluer): L
 
     return list
 }
+
+fun TokenList.popIf(predicate: String.() -> Boolean): Boolean {
+    if (peek().predicate()) {
+        pop()
+        return true
+    }
+    return false
+}
+
+fun TokenList.popIfBlack(): Boolean {
+    return popIf { isBlank() }
+}
+
+open class CompilationException(message: String) : RuntimeException(message)
+
+open class ParsingException(val tokens: TokenList, message: String) : CompilationException(message) {
+    override val message: String
+        get() = "${super.message}" nl
+                "Compilation Stack: " nl
+                tokens.map { "'$it'" }.joinToString(separator = " ", limit = 15)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,66 @@
+
+
+val room = Room {
+    Id = 112
+    BedCount = 4
+    People = List {
+        "A" // 1 = "A"
+        "B"
+        "C"
+        "D"
+    }
+}
+
+fun List.contains(element) { /* ... */ }
+
+fun Room.printOut {
+    println("Room(id = $Id, BedCount = $BedCount, People = $People)")
+}
+
+val myList = range(1, 20)
+
+val list1 = map[ [myList] * 2 ]
+
+val myLambda = (a) { a * 3 + Math.sqrt(a) }
+
+val list2 = map[ myLambda( [myList] ) ]
+// val list2 = forEach(myList, (element) {myLambda(element})
+
+val mySum = reduce[ [myList, 1] + [myList, 2] ]
+// val mySum = reduce(myList, (1th, 2nd) { 1th + 2nd } )
+
+val multipleOf2 = filter[ [myList] % 2 == 0 ]
+// val multipleOf2 = filter (myList)
+
+val multipleOf3 = filter[ [myList] % 3 == 0 ]
+
+fun intersection ( list1, list2 ) {
+    map[ list1.contains( [list2] ) ]
+}
+
+val multipleOf6 = intersection( multipleOf2, multipleOf3 )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
