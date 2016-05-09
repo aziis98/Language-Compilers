@@ -23,6 +23,10 @@ val list1 = map[ [myList] * 2 ]
 
 val myLambda = (a) { a * 3 + Math.sqrt(a) }
 
+fun myLambda(a) {
+    ...
+}
+
 val list2 = map[ myLambda( [myList] ) ]
 // val list2 = forEach(myList, (element) {myLambda(element})
 
@@ -30,7 +34,7 @@ val mySum = reduce[ [myList, 1] + [myList, 2] ]
 // val mySum = reduce(myList, (1th, 2nd) { 1th + 2nd } )
 
 val multipleOf2 = filter[ [myList] % 2 == 0 ]
-// val multipleOf2 = filter (myList)
+// val multipleOf2 = filter (myList, -> it % 2 == 0)
 
 val multipleOf3 = filter[ [myList] % 3 == 0 ]
 

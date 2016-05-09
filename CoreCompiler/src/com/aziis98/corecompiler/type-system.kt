@@ -16,11 +16,15 @@ class Scope() {
         return variables[name] ?:
             throw VariableNotFoundException("The variable '$name' does not exists in scope ${this.toString()}!")
     }
+
+    override fun toString() = variables.map { "${it.key}: ${it.value}" }.joinToString("\n  ", "{\n  ", "\n}")
 }
 
-class Variable(val name: String, val type: VariableType, var value: Any)
+data class Variable(val name: String, val type: VariableType, var value: Any) {
+    override fun toString() = "Variable(name= $name, type= ${type.name}, value= $value)"
+}
 
-class VariableType(val name: String)
+data class VariableType(val name: String)
 
 class VariableNotFoundException(message: String = "") : RuntimeException(message)
 

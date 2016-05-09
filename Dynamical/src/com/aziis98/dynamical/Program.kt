@@ -7,10 +7,15 @@ import java.util.*
 
 class Program {
     val statements = LinkedList<Statement>()
-
     val globalScope = Scope()
 
     fun executeProgram() {
+        var cScope = globalScope
 
+        for (statement in statements) {
+            statement.execute(this, cScope)
+        }
     }
+
+    override fun toString() = "Program( $globalScope )"
 }

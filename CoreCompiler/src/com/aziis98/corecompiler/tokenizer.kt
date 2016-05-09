@@ -38,8 +38,10 @@ fun tokenize(source: String, gluer: (Char, Char) -> Boolean = ::defaultGluer): T
     return list
 }
 
-fun TokenList.popIf(predicate: String.() -> Boolean): Boolean {
-    if (peek().predicate()) {
+fun TokenList.popIf(predicate: (String) -> Boolean): Boolean {
+    if (isEmpty()) return false
+
+    if (predicate(peek())) {
         pop()
         return true
     }
@@ -47,7 +49,7 @@ fun TokenList.popIf(predicate: String.() -> Boolean): Boolean {
 }
 
 fun TokenList.popIfBlack(): Boolean {
-    return popIf { isBlank() }
+    return popIf { it.isBlank() }
 }
 
 open class CompilationException(message: String) : RuntimeException(message)
