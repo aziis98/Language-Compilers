@@ -4,10 +4,10 @@ val room = Room {
     Id = 112
     BedCount = 4
     People = List {
-        "A" // 1 = "A"
-        "B"
-        "C"
-        "D"
+        Person { name = "A" }
+        Person { name = "B" }
+        Person { name = "C" }
+        Person { name = "D" }
     }
 }
 

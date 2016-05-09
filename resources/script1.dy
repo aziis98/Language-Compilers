@@ -4,3 +4,13 @@ val myInteger = 42
 val myDecimal = 3.14
 
 val myString = "My String"
+
+val myFilms = List {
+    Film {
+        Name = "Interstellar"
+    }
+    Film {
+        Name = "Jupiter Ascending"
+    }
+}
+
