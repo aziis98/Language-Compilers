@@ -9,8 +9,12 @@ fun otherGluer(a: Char, b: Char) : Boolean {
 }
 
 fun defaultGluer(a: Char, b: Char): Boolean {
-    return ((a.isJavaIdentifierPart() || a == '.') && (b.isJavaIdentifierPart() || b == '.')) ||
-        (a.isWhitespace() && b.isWhitespace())
+    if (a.isJavaIdentifierPart() && b.isJavaIdentifierPart()) return true
+    if (a == '.' || b == '.') return true
+    if (a == '\n' || b == '\n') return false
+    if (a.isWhitespace() && b.isWhitespace()) return true
+
+    return false
 }
 
 class TokenList : LinkedList<String>()
@@ -56,9 +60,11 @@ open class CompilationException(message: String) : RuntimeException(message)
 
 open class ParsingException(val tokens: TokenList, message: String) : CompilationException(message) {
     override val message: String
-        get() = "${super.message}" nl
-                "Compilation Stack: " nl
-                tokens.map { "'$it'" }.joinToString(separator = " ", limit = 15)
+        get() {
+            return "${super.message}" nl
+                    "Compilation Stack: " nl
+                    tokens.joinToString(limit = 15)
+        }
 }
 
 

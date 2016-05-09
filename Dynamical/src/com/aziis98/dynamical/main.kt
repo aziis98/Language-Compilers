@@ -20,8 +20,12 @@ fun runCode(source: String) {
     val program = Program()
 
     while (tokens.isNotEmpty()) {
-        tokens.popIfBlack()
-        program.statements.add(parseStatement(tokens))
+        while (tokens.peek().isBlank()) {
+            tokens.popIfBlack()
+        }
+
+        val statement = parseStatement(tokens)
+        if (statement != null) program.statements.add(statement)
         tokens.popIfBlack()
     }
 
@@ -71,8 +75,17 @@ class ValueLitteralString(override val value: String) : ValueLitteral<String>() 
         get() = VariableType("String")
 }
 
+class ValueLitteralObject(val typeName: String, override val value: Scope) : ValueLitteral<Scope>() {
+    override val type: VariableType
+        get() = VariableType(typeName)
+}
 
-fun parseStatement(tokens: TokenList) : Statement {
+
+fun parseStatement(tokens: TokenList): Statement? {
+    if (tokens.popIf { it.isBlank() }) {
+        return null
+    }
+
     if (tokens.peek() == "val" || tokens.peek() == "var") {
         return parseDeclaration(tokens)
     }
@@ -83,7 +96,7 @@ fun parseStatement(tokens: TokenList) : Statement {
 fun parseDeclaration(tokens: TokenList): DeclareStatement {
     // tokens.popIfBlack()
     // var|val
-    var declType = tokens.pop()
+    val declType = tokens.pop()
     tokens.pop()
     // <var-name>
     val varName = tokens.pop()
@@ -91,17 +104,29 @@ fun parseDeclaration(tokens: TokenList): DeclareStatement {
     // =
     tokens.pop()
     tokens.popIfBlack()
-    var varValue = parseExpression(tokens)
+    val varValue = parseExpression(tokens)
 
     return DeclareStatement(varName, varValue, declType == "val")
 }
 
 fun parseExpression(tokens: TokenList): Value<*> {
+    if (isValidIdentifier(tokens.peek())) {
+        if (tokens.indexOfFirst { it == "{" }.printExpr("indexof: ") <= 2) {
+            return parseObject(tokens)
+        }
+    }
+
     return parseLitteral(tokens)
 }
 
 val PATTERN_DOUBLE = """[+-]?(\d)*\.(\d)+""".toRegex()
 val PATTERN_INTEGER = """[+-]?(\d)+""".toRegex()
+
+fun isValidIdentifier(string: String): Boolean {
+    val list = string.toCharArray().toList()
+    return list.first().isJavaIdentifierStart() && list.takeLast(list.size - 1).all { it.isJavaIdentifierPart() }
+}
+
 
 fun parseLitteral(tokens: TokenList): ValueLitteral<*> {
     val nextToken = tokens.peek()
@@ -122,15 +147,65 @@ fun parseLitteral(tokens: TokenList): ValueLitteral<*> {
     else if (PATTERN_INTEGER.matches(nextToken)) {
         val value = Integer.parseInt(tokens.pop())
         return ValueLitteralInteger(value)
-    } else if (nextToken == "true" || nextToken == "false") {
+    }
+    else if (nextToken == "true" || nextToken == "false") {
         return ValueLitteralBoolean(java.lang.Boolean.parseBoolean(nextToken))
     }
 
     throw ParsingException(tokens, "Unable to parse Litteral")
 }
 
+fun parseObject(tokens: TokenList): ValueLitteralObject {
+    // <type>
+    val objType = tokens.pop()
+    tokens.popIfBlack()
+    // {
+    tokens.pop()
+    tokens.popIfBlack()
+
+    var listIndex = 0
+    val objData = Scope()
 
 
+    while (tokens.peek() != "}") {
+        var (propName, propValue) = parseObjectKeyValue(tokens, objType == "List")
+        if (propName == null) {
+            propName = (listIndex++).toString()
+        }
+        objData.addVariable(Variable(propName, VariableType(objType), propValue))
+        tokens.popIfBlack()
+    }
+
+    // }
+    tokens.pop()
+
+    return ValueLitteralObject(objType, objData)
+}
+
+// <name> = <value> | <value>
+fun parseObjectKeyValue(tokens: TokenList, isList: Boolean = false): Pair<String?, Value<*>> {
+    while (tokens.peek().isBlank()) {
+        tokens.popIfBlack()
+    }
+
+    if (isList) {
+        val propValue = parseExpression(tokens)
+        tokens.popIfBlack()
+        return null to propValue
+    }
+
+    // <name>
+    val propName = tokens.pop()
+    tokens.popIfBlack()
+    // =
+    tokens.pop()
+    tokens.popIfBlack()
+    // <value>
+    val propValue = parseExpression(tokens)
+    tokens.popIfBlack()
+
+    return propName to propValue
+}
 
 
 

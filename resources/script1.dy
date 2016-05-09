@@ -5,12 +5,16 @@ val myDecimal = 3.14
 
 val myString = "My String"
 
-val myFilms = List {
-    Film {
-        Name = "Interstellar"
-    }
-    Film {
-        Name = "Jupiter Ascending"
-    }
+
+val myFilm = Film {
+    Name = "Interstellar"
 }
 
+val myList = List { 1 2 3 }
+
+val otherList = List {
+    Film { Name = "Interstellar" }
+    Film { Name = "Super8" }
+}
+
+println(myInteger)

@@ -26,8 +26,6 @@ data class Variable(val name: String, val type: VariableType, var value: Any) {
 
 data class VariableType(val name: String)
 
-class VariableNotFoundException(message: String = "") : RuntimeException(message)
-
 data class TypeDefinition(val name: String, val extending: Set<TypeDefinition> = setOf()) {
 
     fun isSubOf(typeDefinition: TypeDefinition): Boolean {
@@ -39,6 +37,8 @@ data class TypeDefinition(val name: String, val extending: Set<TypeDefinition> =
     }
 
 }
+
+class VariableNotFoundException(message: String = "") : RuntimeException(message)
 
 class TypeDefTest() {
     @Test
