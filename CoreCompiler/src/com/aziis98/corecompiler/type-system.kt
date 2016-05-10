@@ -1,10 +1,7 @@
 package com.aziis98.corecompiler
 
-import org.junit.*
-import java.util.*
-
 // Copyright 2016 Antonio De Lucreziis
-
+/*
 class Scope() {
     val variables: HashMap<String, Variable> = HashMap()
 
@@ -59,7 +56,7 @@ class TypeDefTest() {
         Assert.assertTrue(typeC.isSubOf(typeA))
     }
 }
-
+*/
 
 
 

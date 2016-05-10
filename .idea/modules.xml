@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CoreCompiler/CoreCompiler.iml" filepath="$PROJECT_DIR$/CoreCompiler/CoreCompiler.iml" />
       <module fileurl="file://$PROJECT_DIR$/Dynamical/Dynamical.iml" filepath="$PROJECT_DIR$/Dynamical/Dynamical.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lang2/Lang2.iml" filepath="$PROJECT_DIR$/Lang2/Lang2.iml" />
       <module fileurl="file://$PROJECT_DIR$/LanguageCompilers.iml" filepath="$PROJECT_DIR$/LanguageCompilers.iml" />
     </modules>
   </component>
