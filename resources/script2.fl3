@@ -1,0 +1,19 @@
+// Copyright 2016 Antonio De Lucreziis
+
+// infered = string
+val theQuestion = "What's the answer to life and everything?"
+
+// infered = int
+val theAnswer = 42
+
+// infered = decimal
+val pi = 3.14
+
+val myList = List { 1 , 2 , 3 , 4 }
+
+val myObject = SomeType {
+    SomeValue1 = 123
+    SomeValue2 = "Test"
+    SomeValue3 = myList
+}
+

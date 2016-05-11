@@ -1,0 +1,30 @@
+program:
+    # 0 "Ciao"
+    # 1 "println"
+    # 2 "Console"
+    # 3 "Prova"
+    # 4 "E"
+    # 5 "Math"
+    # 6 2
+    # 7 "pow"
+    # 8 "myVar"
+
+    LOAD 0
+    CALL 2 1 1
+
+    LOAD 3
+    CALL 2 1 1
+
+    PGET 5 4
+    LOAD 6
+    CALL 5 7
+    
+
+function: pow(base, exponent)
+    # 1 "base"
+    # 2 "exponent"
+
+// CALL <variable-name> <function-name> <param-count>
+// LOAD <value>
+// PGET <target> <property-name>
+

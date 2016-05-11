@@ -34,9 +34,11 @@ data class TypeDefinition(val name: String, val extending: Set<TypeDefinition> =
     }
 
 }
+*/
 
-class VariableNotFoundException(message: String = "") : RuntimeException(message)
+class DefinitionNotFoundException(message: String = "") : RuntimeException(message)
 
+/*
 class TypeDefTest() {
     @Test
     fun test1() {
@@ -56,9 +58,8 @@ class TypeDefTest() {
         Assert.assertTrue(typeC.isSubOf(typeA))
     }
 }
+
 */
-
-
 
 
 
