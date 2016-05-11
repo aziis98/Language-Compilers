@@ -1,5 +1,4 @@
 
-
 val room = Room {
     Id = 112
     BedCount = 4
@@ -24,31 +23,46 @@ val list1 = map[ [myList] * 2 ]
 val myLambda = (a) { a * 3 + Math.sqrt(a) }
 
 fun myLambda(a) {
-    ...
+    // ...
 }
 
 val list2 = map[ myLambda( [myList] ) ]
-// val list2 = forEach(myList, (element) {myLambda(element})
+// val list2 = forEach(myList, (element) { myLambda(element) } )
 
-val mySum = reduce[ [myList, 1] + [myList, 2] ]
+// ???
+// val mySum = reduce[ [myList, 1] + [myList, 2] ]
 // val mySum = reduce(myList, (1th, 2nd) { 1th + 2nd } )
 
 val multipleOf2 = filter[ [myList] % 2 == 0 ]
-// val multipleOf2 = filter (myList, -> it % 2 == 0)
+// val multipleOf2 = filter (myList, (element) { element % 2 == 0 } )
 
 val multipleOf3 = filter[ [myList] % 3 == 0 ]
 
-fun intersection ( list1, list2 ) {
-    map[ list1.contains( [list2] ) ]
+fun intersection( list1, list2 ) {
+    filter[ list1.contains( [list2] ) ]
 }
 
 val multipleOf6 = intersection( multipleOf2, multipleOf3 )
 
+// fun <type>.<function-name>(<params...>) { <statements> <last-is-the-return> }
+fun List.contains(a) {
+    // <native>
+}
 
+//// math.fl3
 
+val Math = singleton Math {
+    PI = 3.1415
+    E = 2.7182
+}
 
+fun Math.sqrt(a) {
+    // <native>
+}
 
-
+fun Math.toDegrees(radians) {
+    radians * 180 / Math.PI // or 'this.PI'
+}
 
 
 
